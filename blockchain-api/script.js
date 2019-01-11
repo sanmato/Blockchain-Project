@@ -6,18 +6,18 @@ class Block {
         this.date = new Date();
         this.data = data;
         this.previousHash = previousHash;
-        this.hash = this.createHash();
+       this.hash = this.createHash();
         this.nonce = 0;
     }
 
     createHash() {
-        return SHA256(this.index + this.date + this.data + this.createHash.previousHash + this.nonce).toString();
+        return SHA256(this.index + this.date + this.data + this.previousHash + this.nonce).toString();
     }
 
     mine(difficulty) {
         while(!this.hash.startsWith(difficulty)) {
             this.nonce++;
-            this.hash;
+            this.hash = this.createHash();
         }
     }
 }
@@ -57,8 +57,8 @@ class BlockChain {
 // block = new Block(0, 'prueba');
 // console.log(JSON.stringify(block, null, 2));
 
-chain = new BlockChain('genesis block', '0');
+chain = new BlockChain('genesis block', '0000');
 chain.addBlock('second block');
 chain.addBlock('third block');
-// console.log(JSON.stringify(chain, null, 2));
-console.log(chain.isValid());
+console.log(JSON.stringify(chain.chain, null, 2));
+// console.log(chain.isValid());
